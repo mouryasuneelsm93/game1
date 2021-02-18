@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
+    <title>Game</title>
+    <style>
+        .container-fluid {
+            border: 1px solid red;
+            height: 100vh;
+        }
+        
+        table {
+            width: 100%;
+        }
+        
+        table tr td {
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .one {
+            background-color: blueviolet;
+        }
+        
+        .two {
+            background-color: brown;
+        }
+        
+        .three {
+            background-color: burlywood;
+        }
+        
+        .four {
+            background-color: chartreuse;
+        }
+        
+        .five {
+            background-color: crimson;
+        }
+        
+        .r1 {
+            margin-top: 40%;
+        }
+        
+        .cir {
+            width: 20%;
+            margin: auto;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border: ridge;
+            border-top: none;
+            height: 100px;
+            /* background-color: red; */
+        }
+        
+        .circle {
+            width: 50px;
+            margin: auto;
+            height: 50px;
+            border-radius: 25px;
+            background-color: red;
+        }
+        
+        .release {
+            width: 50px;
+            margin: auto;
+            height: 50px;
+            border-radius: 25px;
+            background-color: burlywood;
+            margin-top: -100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <table id="t">
+            <tr>
+                <td>
+                    <div class="one">asda</div>
+                </td>
+                <td>
+                    <div class="two">asda</div>
+                </td>
+                <td>
+                    <div class="three">asda</div>
+                </td>
+                <td>
+                    <div class="four">asda</div>
+                </td>
+                <td>
+                    <div class="five">asda</div>
+                </td>
+            </tr>
+        </table>
+        <div class="row r1">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4 text-center">
+                <div class="cir"></div>
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+</body>
+
+</html>
+<script>
+    var marg = -100,
+        cl, clr;
+
+    $(document).ready(function() {
+        $(".cir").html("<div>");
+        $(".cir").children("div").addClass("circle");
+        $("body").on('keypress', function(event) {
+            var a = event.key;
+            // console.log(a);
+            if (a == "Enter") {
+                marg = -100;
+                clearInterval(cl);
+
+                n = $("<div>");
+                n.addClass("release");
+                $(".container-fluid").append(n)
+                var ran = Math.floor(Math.random() * 5) + 1;
+                // console.log(ran);
+                if (ran == 1) {
+                    clr = "blueviolet";
+                    $(".release").addClass('b1');
+                } else if (ran == 2) {
+                    clr = "brown";
+                    $(".release").addClass('b2');
+                } else if (ran == 3) {
+                    clr = "burlywood";
+                    $(".release").addClass('b3');
+                } else
+                if (ran == 4) {
+                    clr = "chartreuse";
+                    $(".release").addClass('b4');
+                } else if (ran == 5) {
+                    clr = "crimson";
+                    $(".release").addClass('b5');
+                }
+                // console.log(clr, ran);
+                $(".release").css('background-color', `${clr}`);
+                cl = setInterval(() => {
+                    Pro();
+                }, 100);
+                // console.log(n);
+
+
+                $(".circle").css('background-color', `${clr}`);
+                // console.log(marg);
+            }
+        })
+    })
+    var cl1 = "three";
+    var c = $(".three").css("background-color");
+    var i = 0;
+
+    function Pro() {
+        marg = marg - 10;
+        $(".release").css("margin-top", `${marg}px`);
+
+        if (marg == -500) {
+
+            var x = $(".release").prop('class');
+            let a = x.split(" ");
+            console.log(a[1]);
+            console.log(cl1);
+            var tar = $(".release").css("background-color");
+            console.log(c, tar);
+            if (tar == c || a[1] == "b3") {
+                i++;
+                var d = $(`.${cl1}`).parent();
+                d.remove();
+                $("div").remove(cl1);
+                $("div").remove(".release");
+                if (i == 1) {
+
+                    cl1 = "two";
+                    c = $(`.${cl1}`).css("background-color");
+                } else if (i == 2) {
+                    cl1 = "four";
+                    c = $(`.${cl1}`).css("background-color");
+                } else if (i == 3) {
+                    cl1 = "one";
+                    c = $(`.${cl1}`).css("background-color");
+                } else if (i == 4) {
+                    cl1 = "five";
+                    c = $(`.${cl1}`).css("background-color");
+                    alert("Finish ! !")
+                    location.reload();
+                }
+                console.log(i);
+            } else {
+                $("div").remove(".release");
+            }
+        }
+    }
+
+    // var c = $(".one").css("background-color");
+    // console.log(c);
+</script>
